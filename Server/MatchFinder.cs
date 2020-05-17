@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Server
@@ -23,42 +24,64 @@ namespace Server
                 case "5":
                     string matchType = "5";
                     clientQueue5.Enqueue(client);
-                    if (clientQueue5.Count <= 2)
+                    if (clientQueue5.Count >= 2)
                     {
                         ClientObject client1 = clientQueue5.Dequeue();
                         ClientObject client2 = clientQueue5.Dequeue();
                         CreateMatch(client1, client2, matchType);
+                    }
+                    else
+                    {
+                        clientQueue5.Dequeue();
+                        AddClientToQueue(client);
                     }
 
                     break;
                 case "10":
                      matchType = "10";
                     clientQueue10.Enqueue(client);
-                    if (clientQueue10.Count <= 2)
+                    if (clientQueue10.Count >= 2)
                     {
                         ClientObject client1 = clientQueue5.Dequeue();
                         ClientObject client2 = clientQueue5.Dequeue();
                         CreateMatch(client1, client2, matchType);
+                    }
+                    else
+                    {
+                        clientQueue10.Dequeue();
+                        Thread.Sleep(15000);
+                        AddClientToQueue(client);
+                        
                     }
                     break;
                 case "15":
                      matchType = "15";
                     clientQueue15.Enqueue(client);
-                    if (clientQueue15.Count <= 2)
+                    if (clientQueue15.Count >= 2)
                     {
                         ClientObject client1 = clientQueue5.Dequeue();
                         ClientObject client2 = clientQueue5.Dequeue();
                         CreateMatch(client1, client2, matchType);
                     }
+                    else
+                    {
+                        clientQueue15.Dequeue();
+                        AddClientToQueue(client);
+                    }
                     break;
                 case "20":
                      matchType = "20";
                     clientQueue20.Enqueue(client);
-                    if (clientQueue20.Count <= 2)
+                    if (clientQueue20.Count >= 2)
                     {
                         ClientObject client1 = clientQueue5.Dequeue();
                         ClientObject client2 = clientQueue5.Dequeue();
                         CreateMatch(client1, client2, matchType);
+                    }
+                    else
+                    {
+                        clientQueue20.Dequeue();
+                        AddClientToQueue(client);
                     }
                     break;
             }
@@ -88,8 +111,8 @@ namespace Server
                     while (reader.Read())
                     {
                     string matchID = Convert.ToString(reader.GetInt32(0));
-                    ClientNotifier.ClientCall(client1, "Match Found+"+matchID);
-                    ClientNotifier.ClientCall(client2, "Match Found+"+matchID);
+                    ClientNotifier.ClientCall(client1, matchID);
+                    ClientNotifier.ClientCall(client2, matchID);
                 }
             }
         }

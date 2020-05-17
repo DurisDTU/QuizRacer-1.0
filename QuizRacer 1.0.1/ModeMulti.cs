@@ -1,7 +1,9 @@
-﻿using System;
+﻿using QuizRacer_1._0._1;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace QuizRacer
@@ -16,17 +18,16 @@ namespace QuizRacer
 
             qD.displayStart(8, "Waiting for match...");
 
-            Client.Servercall(request.IP+gs.amountOfQuestions);
+            ClientSend.Servercall(request.IP+gs.amountOfQuestions);
 
-            Console.WriteLine("ready for game start");
+            string matchID = ClientReceive.ReceiveMessage();
+            while (matchID.Equals("no"))
+            {
+                matchID = ClientReceive.ReceiveMessage();
+                Thread.Sleep(3000);
 
-            
-
-
-
-
-
-
+            }
+            Console.WriteLine(matchID, "ready for game start");
         }
 
         public void StartGame(Player player, GameSettings gs)
