@@ -40,16 +40,16 @@ namespace Server
                 case "10":
                      matchType = "10";
                     clientQueue10.Enqueue(client);
+                    Thread.Sleep(10000);
                     if (clientQueue10.Count >= 2)
                     {
-                        ClientObject client1 = clientQueue5.Dequeue();
-                        ClientObject client2 = clientQueue5.Dequeue();
+                        ClientObject client1 = clientQueue10.Dequeue();
+                        ClientObject client2 = clientQueue10.Dequeue();
                         CreateMatch(client1, client2, matchType);
                     }
                     else
                     {
                         clientQueue10.Dequeue();
-                        Thread.Sleep(15000);
                         AddClientToQueue(client);
                         
                     }
@@ -59,8 +59,8 @@ namespace Server
                     clientQueue15.Enqueue(client);
                     if (clientQueue15.Count >= 2)
                     {
-                        ClientObject client1 = clientQueue5.Dequeue();
-                        ClientObject client2 = clientQueue5.Dequeue();
+                        ClientObject client1 = clientQueue15.Dequeue();
+                        ClientObject client2 = clientQueue15.Dequeue();
                         CreateMatch(client1, client2, matchType);
                     }
                     else
@@ -74,8 +74,8 @@ namespace Server
                     clientQueue20.Enqueue(client);
                     if (clientQueue20.Count >= 2)
                     {
-                        ClientObject client1 = clientQueue5.Dequeue();
-                        ClientObject client2 = clientQueue5.Dequeue();
+                        ClientObject client1 = clientQueue20.Dequeue();
+                        ClientObject client2 = clientQueue20.Dequeue();
                         CreateMatch(client1, client2, matchType);
                     }
                     else
@@ -91,7 +91,7 @@ namespace Server
         public static void CreateMatch(ClientObject client1, ClientObject client2, string MatchType)
         {
             string connString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Users;Integrated Security=True;Connect Timeout=30;MultipleActiveResultSets=True";
-            string createMatchEntry = "INSERT INTO UserMatch(IP1, IP2, Score1, Score2, MatchType) VALUES ('"+client1.IP+ "', '" + client2.IP + "', "+client1.score+", "+client2.score+", "+MatchType+")";
+            string createMatchEntry = "INSERT INTO UserMatch(IP1, IP2, Score1, Score2, MatchType) VALUES ('" + client1.IP + "', '" + client2.IP + "', 0, 0, " + MatchType + ")";
             string getMatchId = "SELECT MatchID FROM UserMatch WHERE IP1 = '" + client1.IP + "' AND IP2 = '" + client2.IP + "'";
 
             using (SqlConnection connection = new SqlConnection(connString))

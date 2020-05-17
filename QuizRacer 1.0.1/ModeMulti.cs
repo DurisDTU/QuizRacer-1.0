@@ -1,9 +1,5 @@
 ﻿using QuizRacer_1._0._1;
 using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace QuizRacer

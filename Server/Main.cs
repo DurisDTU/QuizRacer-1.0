@@ -45,8 +45,8 @@ namespace Server
             else if (strSplit.Length == 3)
             {
                 clientObj.IP = strSplit[0];
-                clientObj.matchID = strSplit[1];
-                clientObj.score = strSplit[2];
+                clientObj.MatchID = strSplit[1];
+                clientObj.Score = strSplit[2];
                 //spillet er på vej mod the end
                 //do stuff
             }    
