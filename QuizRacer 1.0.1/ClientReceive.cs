@@ -19,7 +19,7 @@ namespace QuizRacer_1._0._1
         //We expect the incoming object to be a string which we state explicitly by using <string>
        NetworkComms.AppendGlobalIncomingPacketHandler<string>("Message", ProcessReceivedMessage);
             //Start listening for incoming connections
-            Connection.StartListening(ConnectionType.TCP, new System.Net.IPEndPoint(System.Net.IPAddress.Any, 8084));
+            Connection.StartListening(ConnectionType.TCP, new System.Net.IPEndPoint(System.Net.IPAddress.Any, 43987));
 
             //Print out the IPs and ports we are now listening on
             //Console.WriteLine("Server listening for TCP connection on:");

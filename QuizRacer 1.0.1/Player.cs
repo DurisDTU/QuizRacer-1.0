@@ -69,16 +69,17 @@ namespace QuizRacer
                 {
                     reader.Close();
                     SqlCommand playerCreate = new SqlCommand(createQuery, connection);
+                    SqlCommand updatePlayerObj = new SqlCommand(selectQuery, connection);
                     playerCreate.ExecuteNonQuery();
-                    SqlDataReader reader2 = playerCreate.ExecuteReader();
+                    SqlDataReader reader2 = updatePlayerObj.ExecuteReader();
                     while (reader2.Read())
                     {
                         player.Name = reader2.GetString(1);
                         player.Highscore = reader2.GetInt32(2);
                         player.AnsweredQuestions = reader2.GetInt32(3);
-                        player.CorrectAnswers = reader.GetInt32(4);
-                        player.WonGames = reader.GetInt32(5);
-                        player.IP = reader.GetString(6);
+                        player.CorrectAnswers = reader2.GetInt32(4);
+                        player.WonGames = reader2.GetInt32(5);
+                        player.IP = reader2.GetString(6);
                     }
                 } 
             }
@@ -99,7 +100,7 @@ namespace QuizRacer
         {
             string hostName = Dns.GetHostName(); // Retrive the Name of HOST  
 
-            string myIP = Dns.GetHostByName(hostName).AddressList[0].ToString() + "+";
+            string myIP = Dns.GetHostByName(hostName).AddressList[0].ToString();
 
             return myIP;
         }
