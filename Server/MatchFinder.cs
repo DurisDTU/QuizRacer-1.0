@@ -32,8 +32,17 @@ namespace Server
                     }
                     else
                     {
-                        clientQueue5.Dequeue();
-                        AddClientToQueue(client);
+                        try
+                        {
+                            clientQueue5.Dequeue();
+                            AddClientToQueue(client);
+                        }
+                        catch
+                        {
+                            break;
+                        }
+
+
                     }
 
                     break;
@@ -49,8 +58,16 @@ namespace Server
                     }
                     else
                     {
-                        clientQueue10.Dequeue();
-                        AddClientToQueue(client);
+                        try
+                        {
+                            clientQueue10.Dequeue();
+                            AddClientToQueue(client);
+                        }
+                        catch
+                        {
+                            break;
+                        }                        
+                        
                         
                     }
                     break;
@@ -65,8 +82,17 @@ namespace Server
                     }
                     else
                     {
-                        clientQueue15.Dequeue();
-                        AddClientToQueue(client);
+                        try
+                        {
+                            clientQueue15.Dequeue();
+                            AddClientToQueue(client);
+                        }
+                        catch
+                        {
+                            break;
+                        }
+
+
                     }
                     break;
                 case "20":
@@ -80,8 +106,17 @@ namespace Server
                     }
                     else
                     {
-                        clientQueue20.Dequeue();
-                        AddClientToQueue(client);
+                        try
+                        {
+                            clientQueue20.Dequeue();
+                            AddClientToQueue(client);
+                        }
+                        catch
+                        {
+                            break;
+                        }
+
+
                     }
                     break;
             }

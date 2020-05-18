@@ -1,12 +1,12 @@
 ﻿using QuizRacer_1._0._1;
 using System;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace QuizRacer
 {
     class ModeMulti
     {
-
         public static void MultiplayerGame(Player player, GameSettings gs)
         {
             QuestionDisplay qD = new QuestionDisplay();
@@ -23,13 +23,18 @@ namespace QuizRacer
                 Thread.Sleep(3000);
 
             }
-            Console.WriteLine(matchID, "ready for game start");
-        }
-
-        public void StartGame(Player player, GameSettings gs)
-        {
             ModeSolo.SoloGame(player, gs);
-        }
 
+            ClientSend.Servercall(request.IP + matchID + player.Score);
+
+            int opponentScore = Int32.Parse(ClientReceive.ReceiveMessage());
+            while (opponentScore == 0)
+            {
+                opponentScore = Int32.Parse(ClientReceive.ReceiveMessage());
+                Thread.Sleep(3000);
+            }
+
+
+        }
     }
 }
