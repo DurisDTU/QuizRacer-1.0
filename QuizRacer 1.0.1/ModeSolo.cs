@@ -157,19 +157,16 @@ namespace QuizRacer
                 }
             }
 
+            if (player.Score == 0){
+                player.Score = -1;
+            }
+
             if (player.Score > player.Gethighscore(player.Name))
             {
                 player.Highscore = player.Score;
             }
 
             player.UpdatePlayerStats(player);
-
-            qD.gameDisplayMultiple(player.Name, player.Score, "Thanks for playing! Here are your stats:",
-                                                                        "Correct answers: " + player.CorrectAnswers,
-                                                                        "Total answered questions: " + player.AnsweredQuestions,
-                                                                        "Highscore: " + player.Highscore,
-                                                                        ""//insert won games
-                                                                        );
         }
 
         private static char Answer()

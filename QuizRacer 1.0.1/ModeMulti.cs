@@ -23,17 +23,28 @@ namespace QuizRacer
                 Thread.Sleep(3000);
 
             }
+
             ModeSolo.SoloGame(player, gs);
 
             ClientSend.Servercall(request.IP + matchID + player.Score);
-
+            
             int opponentScore = Int32.Parse(ClientReceive.ReceiveMessage());
-            while (opponentScore == 0)
+            while (opponentScore != 0)
             {
-                opponentScore = Int32.Parse(ClientReceive.ReceiveMessage());
+                opponentScore = ClientReceive.ReceiveMessage();
                 Thread.Sleep(3000);
             }
 
+            if (opponentScore < player.Score){
+                qD.displayStart(8, "You won the game! " + player.Score + " to " + opponentScore);
+                player.WonGames = player.WonGames+1;
+                player.UpdatePlayerStats(player);
+            }
+            else if (opponentScore > player.Score)
+            {
+                qD.displayStart(8, "Your opponent won the game, with " + opponentScore+ " points");
+                Thread.Sleep(2000);
+            }
 
         }
     }

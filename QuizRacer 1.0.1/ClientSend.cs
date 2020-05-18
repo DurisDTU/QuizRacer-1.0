@@ -33,30 +33,5 @@ namespace QuizRacer
             //We have used comms so we make sure to call shutdown
             NetworkComms.Shutdown();
         }
-
-        public static void ProcessReceivedMessage(PacketHeader header, Connection connection, string message)
-        {
-           
-            
-
-            //Console.WriteLine("\nA message was received from " + connection.ToString() + " which said '" + message + "'.");
-            //string connString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Users;Integrated Security=True;Connect Timeout=30;MultipleActiveResultSets=True";
-            //string[] strSplit = message.Split('+');
-            //string MatchID = strSplit[1];
-            //string IP = strSplit[2];
-            //string getPlayerObj = "SELECT * FROM Users WHERE IP = '"+IP+"'";
-
-            //using (SqlConnection connection1 = new SqlConnection(connString))
-            //{
-            //    connection1.Open();
-            //    SqlCommand createTable = new SqlCommand(getPlayerObj, connection1);
-            //    SqlDataReader reader = createTable.ExecuteReader();
-            //    while (reader.Read())
-            //    {
-
-            //    }
-
-            //}
-        }
     }
 }

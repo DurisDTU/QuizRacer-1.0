@@ -49,10 +49,25 @@ namespace QuizRacer
                     {
                         case 'a':
                             ModeSolo.SoloGame(player, gS);
+                            qD.gameDisplayMultiple(player.Name, player.Score, "Thanks for playing! Here are your stats:",
+                                                                        "Correct answers: " + player.CorrectAnswers,
+                                                                        "Total answered questions: " + player.AnsweredQuestions,
+                                                                        "Highscore: " + player.Highscore,
+                                                                        ""
+                                                                        );
+                            Thread.Sleep(2000);
                             player.Score = 0;
                             break;
                         case 'b':
                             ModeMulti.MultiplayerGame(player, gS);
+                            qD.gameDisplayMultiple(player.Name, player.Score, "Thanks for playing! Here are your stats:",
+                                                                        "Correct answers: " + player.CorrectAnswers,
+                                                                        "Total answered questions: " + player.AnsweredQuestions,
+                                                                        "Highscore: " + player.Highscore,
+                                                                        "Won Games: " + player.WonGames
+                                                                        );
+                            Thread.Sleep(2000);
+                            player.Score = 0;
                             break;
                         case 'c':
                             profil.ProfilePage(player);

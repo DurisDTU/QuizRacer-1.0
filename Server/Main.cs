@@ -47,8 +47,10 @@ namespace Server
                 clientObj.IP = strSplit[0];
                 clientObj.MatchID = strSplit[1];
                 clientObj.Score = strSplit[2];
-                //spillet er på vej mod the end
-                //do stuff
+
+                MatchFinder.SetMatchScore(clientObj);
+
+                
             }    
         }
 

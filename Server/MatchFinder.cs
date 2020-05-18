@@ -151,5 +151,94 @@ namespace Server
                 }
             }
         }
-    }
+
+        public static void SetMatchScore(ClientObject client)
+        {
+            string connString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Users;Integrated Security=True;Connect Timeout=30;MultipleActiveResultSets=True";
+            string setScore1 = "UPDATE UserMatch SET Score1 = '" + client.Score + "' WHERE MatchID = " + client.MatchID;
+            string setScore2 = "UPDATE UserMatch SET Score2 = '" + client.Score + "' WHERE MatchID = " + client.MatchID;
+            string getClientIP1 = "SELECT IP1 FROM UserMatch WHERE MatchID = " + client.MatchID;
+
+            using(SqlConnection connection = new SqlConnection(connString))
+            {
+                connection.Open();
+                
+                SqlCommand findClientIP1 = new SqlCommand(getClientIP1, connection);
+
+                SqlCommand updateScore1 = new SqlCommand(setScore1, connection);
+                SqlCommand updateScore2 = new SqlCommand(setScore2, connection);
+
+                SqlDataReader reader = findClientIP1.ExecuteReader();
+                
+                while (reader.Read())
+                {
+                    if (client.IP.Equals(reader.GetString(0)))
+                    {
+                        updateScore1.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        updateScore2.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+
+        public static void GetMatchScores (ClientObject client)
+        {
+            string connString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Users;Integrated Security=True;Connect Timeout=30;MultipleActiveResultSets=True";
+
+            string getScores = "SELECT Score1, Score2, IP1, IP2 FROM UserMatch WHERE MatchID = '" + client.MatchID;
+
+            ClientObject client2 = new ClientObject();
+
+            using (SqlConnection connection = new SqlConnection(connString))
+            {
+                connection.Open();
+                
+                SqlCommand getScoreCommand = new SqlCommand(getScores, connection);
+
+                SqlDataReader reader = getScoreCommand.ExecuteReader;
+
+                while (reader.Read())
+                {
+                    string score1 = Convert.ToString(reader.GetInt32(0));
+                    string score2 = Convert.ToString(reader.GetInt32(1));
+                    string IP1 = reader.GetString(2);
+                    string IP2 = reader.GetString(3);
+                }
+
+               
+
+                if (score1 == 0 || score2 == 0)
+                {
+                    Thread.Sleep(5000);
+                    GetMatchScores(client);
+                } 
+                else 
+                {   //Client1 IP: 1234 Score: 30     
+                    //Client2 IP: 5678 Score: 80
+                    if (client.IP.Equals(IP1)) //1234 = 1234
+                    {
+                        client2.IP = IP2; //5678
+                        client2.Score = score2; //80
+
+                        ClientNotifier.ClientCall(client2, client.Score); //5678, 30
+                        ClientNotifier.ClientCall(client, client2.Score); //1234, 80
+                    }
+                    else
+                    //Client2 IP: 1234 Score: 30
+                    //Client1 IP: 5678 Score: 80
+                    {
+                        client2.IP = IP1;           //1234
+                        client2.Score = score1;     //30
+
+                        ClientNotifier.ClientCall(client2, client.Score); //1234, 80
+                        ClientNotifier.ClientCall(client, client2.Score); //5678, 30
+                    }
+                }
+            }
+        }
+    }   
 }
+
