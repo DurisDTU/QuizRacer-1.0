@@ -186,6 +186,11 @@ namespace Server
 
         public static void GetMatchScores (ClientObject client)
         {
+            string score1 = "";
+            string score2 = "";
+            string IP1 = "";
+            string IP2 = "";
+
             string connString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Users;Integrated Security=True;Connect Timeout=30;MultipleActiveResultSets=True";
 
             string getScores = "SELECT Score1, Score2, IP1, IP2 FROM UserMatch WHERE MatchID = '" + client.MatchID;
@@ -198,19 +203,19 @@ namespace Server
                 
                 SqlCommand getScoreCommand = new SqlCommand(getScores, connection);
 
-                SqlDataReader reader = getScoreCommand.ExecuteReader;
+                SqlDataReader reader = getScoreCommand.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    string score1 = Convert.ToString(reader.GetInt32(0));
-                    string score2 = Convert.ToString(reader.GetInt32(1));
-                    string IP1 = reader.GetString(2);
-                    string IP2 = reader.GetString(3);
+                    score1 = Convert.ToString(reader.GetInt32(0));
+                    score2 = Convert.ToString(reader.GetInt32(1));
+                    IP1 = reader.GetString(2);
+                    IP2 = reader.GetString(3);
                 }
 
                
 
-                if (score1 == 0 || score2 == 0)
+                if (score1 == "0" || score2 == "0")
                 {
                     Thread.Sleep(5000);
                     GetMatchScores(client);

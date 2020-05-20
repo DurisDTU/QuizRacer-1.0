@@ -31,7 +31,7 @@ namespace QuizRacer
             int opponentScore = Int32.Parse(ClientReceive.ReceiveMessage());
             while (opponentScore != 0)
             {
-                opponentScore = ClientReceive.ReceiveMessage();
+                opponentScore = Int32.Parse(ClientReceive.ReceiveMessage());
                 Thread.Sleep(3000);
             }
 
