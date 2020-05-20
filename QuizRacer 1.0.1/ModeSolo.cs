@@ -22,9 +22,10 @@ namespace QuizRacer
             ProfileUpdater updater = new ProfileUpdater();
             PointCalculater pCalculater = new PointCalculater();
             ModeGameSettings mgs = new ModeGameSettings();
+           
             //Fetches the question string from the website (edit the last number to how many questions you want.
             WebClient client = new WebClient();
-            string sb = client.DownloadString(mgs.GameSettingURL(gS));
+            string sb = WebUtility.HtmlDecode(client.DownloadString(mgs.GameSettingURL(gS)));
 
             //Places the questions into an array of questions
             Questions[] questions = qS.QSeperate(sb);
