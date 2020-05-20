@@ -29,7 +29,7 @@ namespace QuizRacer
             ClientSend.Servercall(request.IP + matchID + player.Score);
             
             int opponentScore = Int32.Parse(ClientReceive.ReceiveMessage());
-            while (opponentScore != 0)
+            while (opponentScore == 0)
             {
                 opponentScore = Int32.Parse(ClientReceive.ReceiveMessage());
                 Thread.Sleep(3000);

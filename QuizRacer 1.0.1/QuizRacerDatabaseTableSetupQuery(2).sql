@@ -18,11 +18,3 @@ CREATE TABLE UserMatch (
     Status2 BIT default 0,
     MatchType varchar(225)
 );
-
-CREATE USER [User]
-    WITHOUT LOGIN
-    WITH DEFAULT_SCHEMA = db_owner
-
-GO
-
-GRANT CONNECT TO [Users];

@@ -21,7 +21,7 @@ namespace QuizRacer
         public static void Servercall(string messageToSend)
         {
             //Parse the necessary information out of the provided string
-            string serverIP = "192.168.0.22";
+            string serverIP = "192.168.0.119";
             int serverPort = 8083;
 
             NetworkComms.SendObject("Message", serverIP, serverPort, messageToSend);

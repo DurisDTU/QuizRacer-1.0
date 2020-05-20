@@ -221,25 +221,22 @@ namespace Server
                     GetMatchScores(client);
                 } 
                 else 
-                {   //Client1 IP: 1234 Score: 30     
-                    //Client2 IP: 5678 Score: 80
-                    if (client.IP.Equals(IP1)) //1234 = 1234
+                {   
+                    if (client.IP.Equals(IP1))
                     {
-                        client2.IP = IP2; //5678
-                        client2.Score = score2; //80
+                        client2.IP = IP2;
+                        client2.Score = score2;
 
-                        ClientNotifier.ClientCall(client2, client.Score); //5678, 30
-                        ClientNotifier.ClientCall(client, client2.Score); //1234, 80
+                        ClientNotifier.ClientCall(client2, client.Score);
+                        ClientNotifier.ClientCall(client, client2.Score);
                     }
                     else
-                    //Client2 IP: 1234 Score: 30
-                    //Client1 IP: 5678 Score: 80
                     {
-                        client2.IP = IP1;           //1234
-                        client2.Score = score1;     //30
+                        client2.IP = IP1;           
+                        client2.Score = score1;     
 
-                        ClientNotifier.ClientCall(client2, client.Score); //1234, 80
-                        ClientNotifier.ClientCall(client, client2.Score); //5678, 30
+                        ClientNotifier.ClientCall(client2, client.Score); 
+                        ClientNotifier.ClientCall(client, client2.Score);
                     }
                 }
             }
